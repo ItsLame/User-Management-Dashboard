@@ -1,113 +1,206 @@
-import Image from "next/image";
+"use client";
+import React from "react";
+
+interface ListCardProps {
+  firstName: string;
+  lastName: string;
+  username: string;
+}
+
+const ListCard: React.FC<ListCardProps> = ({
+  firstName = "First",
+  lastName = "Last",
+  username = "Username",
+}) => {
+  return (
+    <div className="flex flex-row items-center justify-between p-2 border-2 rounded-md hover:border-primary">
+      <p>
+        <span>{firstName}</span>
+        <span className="font-semibold"> {lastName}</span>
+        <span className="italic"> ({username})</span>
+      </p>
+      <div className="flex gap-3">
+        <button
+          className="btn btn-outline btn-primary"
+          onClick={() =>
+            (
+              document.getElementById(
+                `EditModal-${username}`
+              ) as HTMLFormElement
+            ).showModal()
+          }
+        >
+          Edit
+        </button>
+        <button
+          className="btn btn-outline btn-error"
+          onClick={() =>
+            (
+              document.getElementById(
+                `DeleteModal-${username}`
+              ) as HTMLFormElement
+            ).showModal()
+          }
+        >
+          Delete
+        </button>
+      </div>
+
+      <EditModal
+        username={username}
+        firstName={firstName}
+        lastName={lastName}
+      />
+
+      <DeleteModal
+        username={username}
+        firstName={firstName}
+        lastName={lastName}
+      />
+    </div>
+  );
+};
+
+const AddModal = () => {
+  return (
+    <dialog id="AddModal" className="modal modal-bottom sm:modal-middle">
+      <div className="modal-box">
+        <h3 className="pb-4 text-lg font-bold">Add New User</h3>
+        <div className="flex flex-col gap-2">
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full input input-bordered"
+          />
+          <div className="flex flex-row gap-2">
+            <input
+              type="text"
+              placeholder="First name"
+              className="w-full input input-bordered"
+            />
+            <input
+              type="text"
+              placeholder="Last name"
+              className="w-full input input-bordered"
+            />
+          </div>
+          <form method="dialog" className="flex flex-col gap-2 mt-3 ">
+            <button className="w-full text-white btn btn-success">Add</button>
+            <button className="w-full btn btn-ghost">Cancel</button>
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-4 top-5">
+              ✕
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+  );
+};
+
+const EditModal: React.FC<ListCardProps> = ({
+  firstName = "First",
+  lastName = "Last",
+  username = "Username",
+}) => {
+  return (
+    <dialog
+      id={`EditModal-${username}`}
+      className="modal modal-bottom sm:modal-middle"
+    >
+      <div className="modal-box">
+        <h3 className="pb-4 text-lg font-bold">Edit User</h3>
+        <div className="flex flex-col gap-2">
+          <input
+            disabled
+            type="text"
+            placeholder="Username"
+            value={username}
+            className="w-full input input-bordered"
+          />
+          <div className="flex flex-row gap-2">
+            <input
+              type="text"
+              placeholder="First name"
+              value={firstName}
+              className="w-full input input-bordered"
+            />
+            <input
+              type="text"
+              placeholder="Last name"
+              value={lastName}
+              className="w-full input input-bordered"
+            />
+          </div>
+          <form method="dialog" className="flex flex-col gap-2 mt-3">
+            <button className="w-full text-white btn btn-success">
+              Save Changes
+            </button>
+            <button className="w-full btn btn-ghost">Cancel</button>
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-4 top-5">
+              ✕
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+  );
+};
+
+const DeleteModal: React.FC<ListCardProps> = ({
+  firstName = "First",
+  lastName = "Last",
+  username = "Username",
+}) => {
+  return (
+    <dialog
+      id={`DeleteModal-${username}`}
+      className="modal modal-bottom sm:modal-middle"
+    >
+      <div className="modal-box">
+        <h3 className="pb-4 text-lg font-bold">Delete User</h3>
+        <div className="flex flex-col gap-2">
+          <p>Are you sure you want to delete user:</p>
+          <p>
+            <span>{firstName}</span>
+            <span className="font-semibold"> {lastName}</span>
+            <span className="italic"> ({username})</span>
+          </p>
+          <form method="dialog" className="flex flex-col gap-2 mt-3">
+            <button className="w-full btn btn-outline btn-error">Delete</button>
+            <button className="w-full btn btn-ghost">Cancel</button>
+            <button className="absolute btn btn-sm btn-circle btn-ghost right-4 top-5">
+              ✕
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+  );
+};
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24">
-      <div className="z-10 items-center justify-between w-full max-w-5xl font-mono text-sm lg:flex">
-        <p className="fixed top-0 left-0 flex justify-center w-full pt-8 pb-6 border-b border-gray-300 bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <main className="flex flex-col min-h-screen bg-white">
+      <div className="justify-between navbar text-neutral-content">
+        <span className="text-xl font-semibold select-none">
+          User Management Dashboard
+        </span>
+        <button
+          className="btn btn-primary"
+          onClick={() =>
+            (document.getElementById("AddModal") as HTMLFormElement).showModal()
+          }
+        >
+          Add New User
+        </button>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="flex flex-col flex-1 gap-2 p-2 m-2 mb-3 border-2 rounded-md">
+        <ListCard username="sallynatan123" firstName="Sallyna" lastName="Tan" />
+        <ListCard username="bobmarley13" firstName="Bob" lastName="Marley" />
       </div>
 
-      <div className="grid mb-32 text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <AddModal />
     </main>
   );
 }
