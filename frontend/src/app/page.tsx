@@ -182,7 +182,7 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-white">
       <div className="justify-between navbar text-neutral-content">
-        <span className="text-xl font-semibold select-none">
+        <span className="text-xl font-semibold text-black select-none">
           User Management Dashboard
         </span>
         <button
