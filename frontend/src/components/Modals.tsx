@@ -7,46 +7,49 @@ export const AddModal = () => {
     <dialog id="AddModal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
         <h3 className="pb-4 text-lg font-bold">Add New User</h3>
-        <div className="flex flex-col gap-2">
-          <form
-            method="POST"
-            action="/"
-            onSubmit={(e) => {
-              doAdd(e);
-            }}
-          >
+
+        <form
+          method="POST"
+          action="/"
+          onSubmit={(e) => {
+            doAdd(e);
+          }}
+          className="flex flex-col gap-2"
+        >
+          <input
+            id="uname"
+            type="text"
+            placeholder="Username"
+            className="w-full input input-bordered"
+          />
+          <div className="flex flex-row gap-2">
             <input
-              id="uname"
+              id="fname"
               type="text"
-              placeholder="Username"
+              placeholder="First name"
               className="w-full input input-bordered"
             />
-            <div className="flex flex-row gap-2">
-              <input
-                id="fname"
-                type="text"
-                placeholder="First name"
-                className="w-full input input-bordered"
-              />
-              <input
-                id="lname"
-                type="text"
-                placeholder="Last name"
-                className="w-full input input-bordered"
-              />
-            </div>
-            <button className="w-full text-white btn btn-success" type="submit">
-              Add
-            </button>
-          </form>
+            <input
+              id="lname"
+              type="text"
+              placeholder="Last name"
+              className="w-full input input-bordered"
+            />
+          </div>
+          <button
+            className="w-full text-white btn btn-success mt-2"
+            type="submit"
+          >
+            Add
+          </button>
+        </form>
 
-          <form method="dialog" className="flex flex-col gap-2 mt-3 ">
-            <button className="w-full btn btn-ghost">Cancel</button>
-            <button className="absolute btn btn-sm btn-circle btn-ghost right-4 top-5">
-              ✕
-            </button>
-          </form>
-        </div>
+        <form method="dialog" className="flex flex-col mt-2">
+          <button className="w-full btn btn-ghost">Cancel</button>
+          <button className="absolute btn btn-sm btn-circle btn-ghost right-4 top-5">
+            ✕
+          </button>
+        </form>
       </div>
     </dialog>
   );
