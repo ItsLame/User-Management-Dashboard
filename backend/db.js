@@ -18,6 +18,17 @@ const getUsers = (req, res) => {
   });
 };
 
+const getUser = (req, res) => {
+  const { username } = req.query;
+
+  const params = [username];
+  const q = "SELECT * FROM users WHERE username=$1";
+
+  db.query(q, params, (err, results) => {
+    return res.status(200).json(results.rows[0]);
+  });
+};
+
 const addUser = (req, res) => {
   const { username, firstName, lastName } = req.body;
   const params = [username, firstName, lastName];
@@ -66,6 +77,7 @@ const deleteUser = (req, res) => {
 
 module.exports = {
   getUsers,
+  getUser,
   addUser,
   editUser,
   deleteUser,
