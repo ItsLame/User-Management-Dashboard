@@ -10,11 +10,11 @@ export interface ListCardProps {
   user_id?: number;
 }
 
-export const ListCard = ({
+export function ListCard({
   firstname = "First",
   lastname = "Last",
   username = "Username",
-}: ListCardProps) => {
+}: ListCardProps) {
   return (
     <div className="flex items-center justify-between gap-2 p-2 rounded-small border-small hover:bg-default-100 hover:border-black dark:border-neutral-700 dark:hover:border-white">
       <p className="[overflow-wrap:anywhere]">
@@ -28,4 +28,4 @@ export const ListCard = ({
       </div>
     </div>
   );
-};
+}

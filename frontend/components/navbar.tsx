@@ -11,7 +11,7 @@ import clsx from "clsx";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { AddButton } from "./buttons";
 
-export const Navbar = () => {
+export function Navbar() {
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -64,4 +64,4 @@ export const Navbar = () => {
       </NavbarContent>
     </NextUINavbar>
   );
-};
+}
