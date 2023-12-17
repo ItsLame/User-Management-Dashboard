@@ -1,6 +1,6 @@
 const Pool = require("pg").Pool;
 const db = new Pool({
-  user: "postgres",
+  user: "dummy",
   database: "umd",
   host: "localhost",
   port: 5432,
@@ -21,31 +21,30 @@ const getUsers = (req, res) => {
 const addUser = (req, res) => {
   const { username, firstName, lastName } = req.body;
   const params = [username, firstName, lastName];
-  const q =
-    "INSERT INTO users(username, firstname, lastname) VALUES ($1,$2,$3)";
+
+  const q = "INSERT INTO users VALUES ($1, $2, $3)";
 
   db.query(q, params, (err, results) => {
     if (err) {
       console.error(err.stack);
     }
 
+    console.log(`Add success: ${username}`);
     return res.status(200).json({ message: "Add success" });
   });
-
-  // res.json({ requestData: { uname, fname, lname } });
-  // console.log(req.body); // FOR DEBUGGING
 };
 
 const editUser = (req, res) => {
-  const { username } = req.body;
-  const params = [username];
-  const q = "SELECT * FROM users WHERE username=$1";
+  const { username, firstName, lastName } = req.body;
+  const params = [username, firstName, lastName];
+  const q = "UPDATE users SET firstName=$2, lastName=$3 WHERE username=$1";
 
   db.query(q, params, (err, results) => {
     if (err) {
       console.error(err.stack);
     }
 
+    console.log(`Edit success: ${username}`);
     return res.status(200).json({ message: "Edit success" });
   });
 };
@@ -60,6 +59,7 @@ const deleteUser = (req, res) => {
       console.error(err.stack);
     }
 
+    console.log(`Delete success: ${username}`);
     return res.status(200).json({ message: "Delete success." });
   });
 };
