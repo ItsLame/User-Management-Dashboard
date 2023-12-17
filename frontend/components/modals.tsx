@@ -279,12 +279,10 @@ export function DeleteModal({
               </ModalHeader>
               <ModalBody>
                 <p>Are you sure you want to delete the following user:</p>
-                <Snippet hideCopyButton hideSymbol>
-                  <p>
-                    <span>{user.firstname}</span>
-                    <span className="font-semibold"> {user.lastname}</span>
-                    <span className="italic"> ({user.username})</span>
-                  </p>
+                <Snippet hideCopyButton hideSymbol className="overflow-scroll">
+                  <span>{user.firstname}</span>
+                  <span className="font-semibold"> {user.lastname}</span>
+                  <span className="italic"> ({user.username})</span>
                 </Snippet>
               </ModalBody>
               <ModalFooter>
