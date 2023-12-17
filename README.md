@@ -21,6 +21,24 @@ Go to `backend` folder and run `psql umd < umd.pgsql`
      - Set this to primary key
      - This is the serial
     
+Full SQL:
+```sql
+CREATE TABLE IF NOT EXISTS public.users
+(
+    username character varying(44) COLLATE pg_catalog."default",
+    firstname character varying(48) COLLATE pg_catalog."default",
+    lastname character varying(55) COLLATE pg_catalog."default",
+    user_id integer NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
+    CONSTRAINT users_pkey PRIMARY KEY (user_id),
+    CONSTRAINT username_uniq UNIQUE (username)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to dummy;
+```
+    
 ### Others
 If user is not `dummy` and database name is not `umd`, go to `backend/db.js` and change the following code:
 ```javascript
