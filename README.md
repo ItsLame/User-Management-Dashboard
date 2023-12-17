@@ -13,6 +13,7 @@ Go to `backend` folder and run `psql umd < umd.pgsql`
 1. Create a database called `umd`
 2. Create a table called `users` with the following columns:
    - `username character varying(44)`
+      - Set this as unique
    - `firstname character varying(48)`
    - `lastname character varying(55)`
    - `user_id integer NOT NULL`
