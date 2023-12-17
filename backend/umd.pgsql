@@ -75,7 +75,15 @@ COPY public.users (username, firstname, lastname, user_id) FROM stdin;
 -- Name: users_users_idx_seq; Type: SEQUENCE SET; Schema: public; Owner: dummy
 --
 
-SELECT pg_catalog.setval('public.users_users_idx_seq', 8, true);
+SELECT pg_catalog.setval('public.users_users_idx_seq', 25, true);
+
+
+--
+-- Name: users username_uniq; Type: CONSTRAINT; Schema: public; Owner: dummy
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT username_uniq UNIQUE (username);
 
 
 --
