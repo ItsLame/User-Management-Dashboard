@@ -9,6 +9,8 @@ app.use(cors());
 
 // db queries
 app.post("/addUser", db.addUser);
+app.put("/editUser", db.editUser);
+app.delete("/deleteUser", db.deleteUser);
 app.get("/getUsers", db.getUsers);
 
 app.listen(port, () => {
