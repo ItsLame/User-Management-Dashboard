@@ -39,6 +39,7 @@ export function AddModal({
                 Add New User
               </ModalHeader>
               <form
+                id="addForm"
                 onSubmit={(e) => {
                   e.preventDefault();
                   doAdd(e);
@@ -113,6 +114,7 @@ export function EditModal({
                 Edit User
               </ModalHeader>
               <form
+                id="editForm"
                 onSubmit={(e) => {
                   e.preventDefault();
                   doEdit(e);

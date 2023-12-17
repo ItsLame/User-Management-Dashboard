@@ -1,4 +1,3 @@
-import { AddButton } from "@/components/buttons";
 import { UsersList } from "./userslist";
 
 export default function Home() {
