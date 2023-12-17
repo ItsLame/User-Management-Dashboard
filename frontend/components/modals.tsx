@@ -10,6 +10,8 @@ import {
   Snippet,
 } from "@nextui-org/react";
 import { ListCardProps } from "./listcard";
+import { doAdd, doEdit, doDelete } from "@/api/users";
+import { useRouter } from "next/navigation";
 
 export function AddModal({
   isOpen,
@@ -18,6 +20,11 @@ export function AddModal({
   isOpen: boolean;
   onOpenChange: () => void;
 }) {
+  const router = useRouter();
+  const refreshData = () => {
+    router.refresh();
+  };
+
   return (
     <>
       <Modal
@@ -31,32 +38,45 @@ export function AddModal({
               <ModalHeader className="flex flex-col gap-1">
                 Add New User
               </ModalHeader>
-              <ModalBody>
-                <Input
-                  autoFocus
-                  label="Username"
-                  placeholder="e.g. soldier76"
-                  variant="bordered"
-                />
-                <Input
-                  label="First Name"
-                  placeholder="e.g. Jack"
-                  variant="bordered"
-                />
-                <Input
-                  label="Last Name"
-                  placeholder="e.g. Morrison"
-                  variant="bordered"
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button className="w-full" color="primary" onPress={onClose}>
-                  Add
-                </Button>
-                <Button color="default" variant="flat" onPress={onClose}>
-                  Cancel
-                </Button>
-              </ModalFooter>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  doAdd(e);
+                  onClose();
+                  refreshData();
+                  refreshData();
+                }}
+              >
+                <ModalBody>
+                  <Input
+                    autoFocus
+                    name="uname"
+                    label="Username"
+                    placeholder="e.g. soldier76"
+                    variant="bordered"
+                  />
+                  <Input
+                    label="First Name"
+                    name="fname"
+                    placeholder="e.g. Jack"
+                    variant="bordered"
+                  />
+                  <Input
+                    label="Last Name"
+                    name="lname"
+                    placeholder="e.g. Morrison"
+                    variant="bordered"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button className="w-full" color="primary" type="submit">
+                    Add
+                  </Button>
+                  <Button color="default" variant="flat" onPress={onClose}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </form>
             </>
           )}
         </ModalContent>
@@ -74,6 +94,11 @@ export function EditModal({
   onOpenChange: () => void;
   user: ListCardProps;
 }) {
+  const router = useRouter();
+  const refreshData = () => {
+    router.refresh();
+  };
+
   return (
     <>
       <Modal
@@ -87,35 +112,48 @@ export function EditModal({
               <ModalHeader className="flex flex-col gap-1">
                 Edit User
               </ModalHeader>
-              <ModalBody>
-                <Input
-                  isDisabled
-                  label="Username"
-                  defaultValue={user.username}
-                  variant="bordered"
-                />
-                <Input
-                  autoFocus
-                  label="First Name"
-                  placeholder="e.g. Jack"
-                  defaultValue={user.firstName}
-                  variant="bordered"
-                />
-                <Input
-                  label="Last Name"
-                  placeholder="e.g. Morrison"
-                  defaultValue={user.lastName}
-                  variant="bordered"
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button className="w-full" color="primary" onPress={onClose}>
-                  Save Changes
-                </Button>
-                <Button color="default" variant="flat" onPress={onClose}>
-                  Cancel
-                </Button>
-              </ModalFooter>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  doEdit(e);
+                  onClose();
+                  refreshData();
+                  refreshData();
+                }}
+              >
+                <ModalBody>
+                  <Input
+                    isDisabled
+                    label="Username"
+                    name="uname"
+                    defaultValue={user.username}
+                    variant="bordered"
+                  />
+                  <Input
+                    autoFocus
+                    label="First Name"
+                    name="fname"
+                    placeholder="e.g. Jack"
+                    defaultValue={user.firstname}
+                    variant="bordered"
+                  />
+                  <Input
+                    label="Last Name"
+                    name="lname"
+                    placeholder="e.g. Morrison"
+                    defaultValue={user.lastname}
+                    variant="bordered"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button className="w-full" color="primary" type="submit">
+                    Save Changes
+                  </Button>
+                  <Button color="default" variant="flat" onPress={onClose}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </form>
             </>
           )}
         </ModalContent>
@@ -133,6 +171,11 @@ export function DeleteModal({
   onOpenChange: () => void;
   user: ListCardProps;
 }) {
+  const router = useRouter();
+  const refreshData = () => {
+    router.refresh();
+  };
+
   return (
     <>
       <Modal
@@ -150,14 +193,23 @@ export function DeleteModal({
                 <p>Are you sure you want to delete the following user:</p>
                 <Snippet hideCopyButton hideSymbol>
                   <p>
-                    <span>{user.firstName}</span>
-                    <span className="font-semibold"> {user.lastName}</span>
+                    <span>{user.firstname}</span>
+                    <span className="font-semibold"> {user.lastname}</span>
                     <span className="italic"> ({user.username})</span>
                   </p>
                 </Snippet>
               </ModalBody>
               <ModalFooter>
-                <Button className="w-full" color="danger" onPress={onClose}>
+                <Button
+                  className="w-full"
+                  color="danger"
+                  onPress={() => {
+                    doDelete(user.username);
+                    onClose();
+                    refreshData();
+                    refreshData();
+                  }}
+                >
                   Delete
                 </Button>
                 <Button color="default" variant="flat" onPress={onClose}>

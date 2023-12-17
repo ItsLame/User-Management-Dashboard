@@ -5,7 +5,6 @@ import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/react";
 import { AddModal, EditModal, DeleteModal } from "./modals";
 
-import { doAdd, doGetUsers } from "@/api/users";
 import { ListCardProps } from "./listcard";
 
 export function AddButton() {

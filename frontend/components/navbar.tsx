@@ -13,7 +13,11 @@ import { AddButton } from "./buttons";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar
+      maxWidth="xl"
+      position="sticky"
+      className="border-b-1 dark:border-neutral-700"
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex items-center justify-start gap-1" href="/">
@@ -55,6 +59,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="pl-4 sm:hidden basis-full" justify="end">
+        <AddButton />
         <ThemeSwitch />
       </NavbarContent>
     </NextUINavbar>
