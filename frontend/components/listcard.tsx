@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button } from "@nextui-org/button";
 import { EditButton, DeleteButton } from "./buttons";
 
 export interface ListCardProps {
@@ -23,8 +22,8 @@ export const ListCard: React.FC<ListCardProps> = ({
         <span className="italic"> ({username})</span>
       </p>
       <div className="flex flex-col gap-2 sm:flex-row">
-        <EditButton />
-        <DeleteButton />
+        <EditButton {...{ firstName, lastName, username }} />
+        <DeleteButton {...{ firstName, lastName, username }} />
       </div>
     </div>
   );

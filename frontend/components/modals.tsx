@@ -6,12 +6,10 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
-  Checkbox,
   Input,
-  Link,
   Snippet,
 } from "@nextui-org/react";
+import { ListCardProps } from "./listcard";
 
 export function AddModal({
   isOpen,
@@ -70,9 +68,11 @@ export function AddModal({
 export function EditModal({
   isOpen,
   onOpenChange,
+  user,
 }: {
   isOpen: boolean;
   onOpenChange: () => void;
+  user: ListCardProps;
 }) {
   return (
     <>
@@ -91,18 +91,20 @@ export function EditModal({
                 <Input
                   isDisabled
                   label="Username"
-                  defaultValue="soldier76"
+                  defaultValue={user.username}
                   variant="bordered"
                 />
                 <Input
                   autoFocus
                   label="First Name"
                   placeholder="e.g. Jack"
+                  defaultValue={user.firstName}
                   variant="bordered"
                 />
                 <Input
                   label="Last Name"
                   placeholder="e.g. Morrison"
+                  defaultValue={user.lastName}
                   variant="bordered"
                 />
               </ModalBody>
@@ -125,9 +127,11 @@ export function EditModal({
 export function DeleteModal({
   isOpen,
   onOpenChange,
+  user,
 }: {
   isOpen: boolean;
   onOpenChange: () => void;
+  user: ListCardProps;
 }) {
   return (
     <>
@@ -146,9 +150,9 @@ export function DeleteModal({
                 <p>Are you sure you want to delete the following user:</p>
                 <Snippet hideCopyButton hideSymbol>
                   <p>
-                    <span>Jack</span>
-                    <span className="font-semibold"> Morrison</span>
-                    <span className="italic"> (soldier76)</span>
+                    <span>{user.firstName}</span>
+                    <span className="font-semibold"> {user.lastName}</span>
+                    <span className="italic"> ({user.username})</span>
                   </p>
                 </Snippet>
               </ModalBody>
