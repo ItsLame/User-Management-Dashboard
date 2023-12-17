@@ -12,6 +12,7 @@ app.post("/addUser", db.addUser);
 app.put("/editUser", db.editUser);
 app.delete("/deleteUser", db.deleteUser);
 app.get("/getUsers", db.getUsers);
+app.get("/getUser", db.getUser);
 
 app.listen(port, () => {
   console.log(`The server is running at http://localhost:${port}`);

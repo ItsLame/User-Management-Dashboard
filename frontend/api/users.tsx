@@ -6,7 +6,7 @@ export async function doGetUsers() {
   const users = await fetch(`http://localhost:${port}/getusers`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
-    next: { revalidate: 1 },
+    next: { revalidate: 0 },
   })
     .then((res) => {
       return res.json();
@@ -17,6 +17,25 @@ export async function doGetUsers() {
     });
 
   return users;
+}
+
+export async function doGetUser(username: string) {
+  const user = await fetch(
+    `http://localhost:${port}/getUser?username=${username}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      next: { revalidate: 0 },
+    }
+  )
+    .then((res) => {
+      return res.status === 200 ? true : false;
+    })
+    .catch((err) => {
+      return false;
+    });
+
+  return user;
 }
 
 export async function doAdd(event: React.FormEvent<HTMLFormElement>) {
