@@ -3,6 +3,7 @@
 import React from "react";
 import { doGetUsers, doAdd } from "@/api/users";
 import { configureStore } from "@reduxjs/toolkit";
+import { NextUIProvider } from "@nextui-org/react";
 import { ListCard } from "@/components/ListCard";
 import { AddModal } from "@/components/Modals";
 
@@ -55,11 +56,12 @@ export default function Home() {
 
   async function handleGetUsers() {
     const users = await doGetUsers();
-    console.log(users);
+    // console.log(users);
   }
 
   return (
     // <UsersContext.Provider value={setUsers}>
+    // <NextUIProvider>
     <main className="flex flex-col min-h-screen bg-white">
       <div className="justify-between navbar text-neutral-content">
         <span className="text-xl font-semibold text-black select-none">
@@ -86,6 +88,7 @@ export default function Home() {
 
       <AddModal />
     </main>
+    // </NextUIProvider>
     // </UsersContext.Provider>
   );
 }
