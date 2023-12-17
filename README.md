@@ -3,6 +3,7 @@
 - Next.js
 - Express.js
 - NextUI
+- Tailwind
 - PostgreSQL
 
 ## Setting up the local database
